@@ -20,7 +20,9 @@ def main():
     # Using Firefox to access web
     options = Options()
     options.headless = True
-    driver = webdriver.Firefox(options=options, executable_path=r'/usr/local/Cellar/geckodriver/0.26.0/bin/geckodriver')
+    driver = webdriver.Remote(
+            command_executor="127.0.0.1:4545/wd/hub",
+            options = options)
     print ("Headless Firefox Initialized")
 
 
