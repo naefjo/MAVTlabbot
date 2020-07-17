@@ -5,7 +5,7 @@ from selenium.webdriver.firefox.options import Options
 from time import sleep, gmtime, strftime
 import labbot_telegram
 import credentials
-
+import sys
 
 def check_exists_by_xpath(seldriver, xpath):
     try:
@@ -20,9 +20,16 @@ def main():
     # Using Firefox to access web
     options = Options()
     options.headless = True
-    driver = webdriver.Remote(
-            command_executor="127.0.0.1:4545/wd/hub",
-            options = options)
+
+    if (len(sys.argv) == 1 or sys.argv[1] == "docker"):
+        driver = webdriver.Remote(
+                command_executor="127.0.0.1:4545/wd/hub",
+                options = options)
+    else:
+        driver = webdriver.Firefox(
+                options=options,
+                executable_path=r'/usr/local/Cellar/geckodriver/0.26.0/bin/geckodriver')
+
     print ("Headless Firefox Initialized")
 
 
